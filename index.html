@@ -235,6 +235,19 @@
       background: rgba(232, 197, 138, 0.1);
     }
 
+    .tracker {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      background: rgba(155, 140, 255, 0.06);
+    }
+    .tracker-head { display: flex; justify-content: space-between; gap: 8px; font-size: 0.92rem; font-weight: 700; }
+    .tracker-head span:last-child { color: var(--gold); white-space: nowrap; }
+    .tracker-bar { height: 10px; margin: 8px 0 6px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
+    .tracker-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+    .tracker-note { margin: 0; color: var(--muted); font-size: 0.85rem; line-height: 1.4; }
+    .tracker-updated { margin: 6px 0 0; color: var(--dim); font-size: 0.78rem; }
     .pending-note {
       color: var(--gold);
       font-size: 0.9rem;
@@ -514,8 +527,8 @@
         <article class="step">
           <div class="step-num">4</div>
           <div>
-            <h3>Keep it installed for 14 days</h3>
-            <p>Stay opted in, keep the app installed, and open it a few times during the 14-day closed test.</p>
+            <h3>Open it daily for 14 days</h3>
+            <p>Stay opted in, keep the app installed, and open it for about 1 minute every day during the 14-day closed test. Daily use really helps us get the app through Google Play testing.</p>
           </div>
         </article>
       </div>
@@ -632,6 +645,8 @@
         playUrl: "https://play.google.com/store/apps/details?id=com.shrinkpro.toolkit",
         groupUrl: "https://groups.google.com/g/closed-test-pro-",
         groupStatus: "live",
+        testers: 1,
+        testStart: "",
         privacyUrl: "https://dreke20.github.io/whispers26-legal/shrinkpro/privacy.html",
         icon: "assets/shrinkpro-icon.png",
         enabled: true
@@ -645,6 +660,8 @@
         playUrl: "https://play.google.com/store/apps/details?id=com.sparkquest.sparkquest",
         groupUrl: "https://groups.google.com/g/sparkquest-closed-testers",
         groupStatus: "live",
+        testers: 1,
+        testStart: "",
         privacyUrl: "https://dreke20.github.io/SparkQuest/privacy.html",
         icon: "assets/sparkquest-icon.png",
         enabled: true
@@ -658,6 +675,8 @@
         playUrl: "https://play.google.com/store/apps/details?id=whispers.warnings",
         groupUrl: "https://groups.google.com/g/whispers-warnings-testers",
         groupStatus: "live",
+        testers: 3,
+        testStart: "",
         privacyUrl: "https://dreke20.github.io/whispers26-legal/privacy-policy.html",
         icon: "assets/whispers-icon.png",
         enabled: true
@@ -671,6 +690,8 @@
         playUrl: "https://play.google.com/store/apps/details?id=oraculum.dirtysouth",
         groupUrl: "https://groups.google.com/g/oraculum-testers",
         groupStatus: "live",
+        testers: 2,
+        testStart: "",
         privacyUrl: "https://oracalum.netlify.app/privacy",
         icon: "assets/oraculum-icon.png",
         enabled: true
@@ -684,6 +705,8 @@
         playUrl: "",
         groupUrl: "",
         groupStatus: "coming",
+        testers: 0,
+        testStart: "",
         privacyUrl: "",
         icon: "assets/ringsummit-icon.png",
         enabled: true
@@ -730,6 +753,49 @@
         rel: "noopener noreferrer",
         text: label
       });
+    }
+
+    // Tester tracker: update testers (opted-in count) and testStart (YYYY-MM-DD, the day the group hit 12) per app.
+    const REQUIRED_TESTERS = 12;
+    const TEST_DAYS = 14;
+    const TRACKER_UPDATED = "Nov 13, 2026";
+
+    function renderTracker(app) {
+      const count = Math.max(0, Number(app.testers) || 0);
+      const wrap = el("div", { class: "tracker", "aria-label": "Testing progress" });
+      let head, pct, note;
+      if (app.testStart) {
+        const start = new Date(app.testStart + "T00:00:00");
+        const end = new Date(start.getTime() + TEST_DAYS * 86400000);
+        const today = new Date(); today.setHours(0, 0, 0, 0);
+        const elapsed = Math.min(TEST_DAYS, Math.max(0, Math.floor((today - start) / 86400000)));
+        const left = TEST_DAYS - elapsed;
+        const endText = end.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+        pct = (elapsed / TEST_DAYS) * 100;
+        if (left > 0) {
+          head = ["14-day test in progress", "Day " + Math.min(TEST_DAYS, elapsed + 1) + " of " + TEST_DAYS];
+          note = left + (left === 1 ? " day" : " days") + " left. Testing wraps up around " + endText + ". Please keep it installed and open it for 1 minute each day.";
+        } else {
+          head = ["14-day test complete", "Done"];
+          note = "Thank you, testers! This app finished its 14-day closed test.";
+        }
+      } else {
+        const need = Math.max(0, REQUIRED_TESTERS - count);
+        pct = Math.min(100, (count / REQUIRED_TESTERS) * 100);
+        head = ["Testers joined", Math.min(count, REQUIRED_TESTERS) + " of " + REQUIRED_TESTERS];
+        note = need > 0
+          ? need + " more " + (need === 1 ? "tester" : "testers") + " needed before the 14-day test can start. Already in? Open the app for 1 minute each day."
+          : "We have enough testers! The 14-day test starts as soon as everyone has installed. Then open it for 1 minute each day.";
+      }
+      wrap.appendChild(el("div", { class: "tracker-head" }, [el("span", { text: head[0] }), el("span", { text: head[1] })]));
+      const bar = el("div", { class: "tracker-bar", role: "progressbar", "aria-valuemin": "0", "aria-valuemax": "100", "aria-valuenow": String(Math.round(pct)) });
+      const fill = el("div", { class: "tracker-fill" });
+      fill.style.width = pct + "%";
+      bar.appendChild(fill);
+      wrap.appendChild(bar);
+      wrap.appendChild(el("p", { class: "tracker-note", text: note }));
+      wrap.appendChild(el("p", { class: "tracker-updated", text: "Counts updated " + TRACKER_UPDATED }));
+      return wrap;
     }
 
     const PENDING_NOTE = "Opening soon - tester group awaiting Google approval";
@@ -788,6 +854,8 @@
         icon,
         el("div", { class: "app-meta" }, metaChildren)
       ]));
+
+      if (!coming) card.appendChild(renderTracker(app));
 
       const bottom = el("div", { class: "card-bottom" });
       if (pending) {
