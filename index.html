@@ -124,6 +124,12 @@
 
     .lede { color: var(--muted); margin: 0 0 18px; }
 
+    .subhead {
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+      margin: 8px 0 12px;
+    }
+
     .steps {
       display: grid;
       gap: 12px;
@@ -549,10 +555,75 @@
     .listing-pay .pay-note { margin: 0; }
     .listing-pay[hidden] { display: none; }
 
+
+    .tier-grid {
+      display: grid;
+      gap: 16px;
+      margin: 0 0 18px;
+    }
+
+    .tier-card {
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: 24px;
+      padding: 20px 18px 18px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .tier-card h3 {
+      margin: 0;
+      font-size: 1.15rem;
+      letter-spacing: -0.03em;
+    }
+
+    .tier-price {
+      margin: 0;
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.03em;
+    }
+
+    .tier-price span {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2px;
+    }
+
+    .tier-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .tier-card ul {
+      margin: 8px 0 0;
+      padding: 0 0 0 1.15em;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .tier-card li + li { margin-top: 4px; }
+
+    .tier-card .tier-cta {
+      margin-top: auto;
+      padding-top: 12px;
+    }
+
+    .tier-card .btn { width: 100%; }
+
     @media (min-width: 760px) {
       .steps { grid-template-columns: 1fr 1fr; }
       #apps { grid-template-columns: 1fr 1fr; }
       .form-row { grid-template-columns: 1fr 1fr; }
+      .tier-grid { grid-template-columns: 1fr 1fr 1fr; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -573,6 +644,7 @@
         <a href="#apps-section">Apps</a>
         <a href="#faq">FAQ</a>
         <a href="#list">List your app</a>
+        <a href="#build">Build an app</a>
         <a class="nav-feedback" href="#feedback">Send feedback</a>
       </nav>
     </header>
@@ -739,6 +811,196 @@
       </form>
     </section>
 
+
+    <section id="build">
+      <h2>Request an app</h2>
+      <p class="lede">Dirty South’s App Lab can design and build a custom Android app for local small businesses and indie founders. Dreke is a solo Flutter developer in Middle Georgia (Macon / Warner Robins). The prices below are starting-at estimates I propose for common scopes. A free consult comes first, then a written quote for your actual app.</p>
+      <h3 class="subhead">Build tiers</h3>
+      <div class="tier-grid">
+        <article class="tier-card">
+          <h3>Starter MVP</h3>
+          <p class="tier-price"><span>Starting at</span> $5,000</p>
+          <p>A focused first version of one core idea. A handful of screens, a clean layout, and submission to Google Play.</p>
+          <ul>
+            <li>One main flow, typically 5–10 screens</li>
+            <li>Android first, built with Flutter</li>
+            <li>Play Store listing and closed-test setup</li>
+          </ul>
+          <div class="tier-cta"><a class="btn btn-primary" href="#build-form">Request this scope</a></div>
+        </article>
+        <article class="tier-card">
+          <h3>Standard</h3>
+          <p class="tier-price"><span>Starting at</span> $20,000</p>
+          <p>An app with user accounts, a backend, and payments or subscriptions. Typical for a small-business product that needs sign-in and a way to charge.</p>
+          <ul>
+            <li>Accounts and a hosted backend</li>
+            <li>Payments or subscriptions</li>
+            <li>Push notifications and a simple admin view</li>
+          </ul>
+          <div class="tier-cta"><a class="btn" href="#build-form">Request this scope</a></div>
+        </article>
+        <article class="tier-card">
+          <h3>Advanced / AI</h3>
+          <p class="tier-price"><span>Starting at</span> $40,000</p>
+          <p>A more ambitious product: AI features, real-time updates, several user roles, or deeper integrations. We scope what has to ship in version one before any quote is final.</p>
+          <ul>
+            <li>AI features, real-time updates, or several roles</li>
+            <li>Deeper third-party integrations</li>
+            <li>More design, testing, and launch support</li>
+          </ul>
+          <div class="tier-cta"><a class="btn" href="#build-form">Request this scope</a></div>
+        </article>
+      </div>
+      <h3 class="subhead">Monthly management</h3>
+      <p class="lede">After launch, most apps need ongoing care. Industry guides commonly budget about 15–20% of the build cost per year once the app is stable, often more in year one. These monthly packages are starting-at estimates for my time. Hosting, APIs, and store fees are billed by those providers and are not included in the monthly fee.</p>
+      <div class="tier-grid">
+        <article class="tier-card">
+          <h3>Care</h3>
+          <p class="tier-price"><span>Starting at</span> $500 / month</p>
+          <p>Keep a live app running.</p>
+          <ul>
+            <li>Bug fixes and crash follow-up</li>
+            <li>OS and dependency updates</li>
+            <li>Help with hosting and service settings</li>
+          </ul>
+        </article>
+        <article class="tier-card">
+          <h3>Play Console &amp; releases</h3>
+          <p class="tier-price"><span>Starting at</span> $1,000 / month</p>
+          <p>Everything in Care, plus store and release work.</p>
+          <ul>
+            <li>Play Console setup and management</li>
+            <li>Store listing updates and scheduled releases</li>
+            <li>Closed-test setup for new versions</li>
+          </ul>
+        </article>
+        <article class="tier-card">
+          <h3>Growth</h3>
+          <p class="tier-price"><span>Starting at</span> $1,500 / month</p>
+          <p>Everything in Play Console &amp; releases, plus help getting the app in front of people.</p>
+          <ul>
+            <li>Play Store listing optimization (ASO)</li>
+            <li>App Lab tester recruiting for new releases</li>
+            <li>Practical marketing support</li>
+          </ul>
+        </article>
+      </div>
+      <p class="honest-note">Quotes are written after a free consult. Work is Android-first; iOS can be quoted on request because the apps are built with Flutter. I don’t guarantee Google Play approval, a download count, or a search ranking. I never pay for installs, ratings, or Play Store reviews.</p>
+      <h3 class="subhead">How a build works</h3>
+      <div class="steps">
+        <article class="step">
+          <div class="step-num">1</div>
+          <div>
+            <h3>Request</h3>
+            <p>Tell me about the business, the idea, your budget range, and when you hope to launch.</p>
+          </div>
+        </article>
+        <article class="step">
+          <div class="step-num">2</div>
+          <div>
+            <h3>Free consult</h3>
+            <p>We talk through what version one actually needs, and what can wait.</p>
+          </div>
+        </article>
+        <article class="step">
+          <div class="step-num">3</div>
+          <div>
+            <h3>Written quote</h3>
+            <p>You get a scope and a price in writing before any paid work starts.</p>
+          </div>
+        </article>
+        <article class="step">
+          <div class="step-num">4</div>
+          <div>
+            <h3>Build</h3>
+            <p>I design and build the app in Flutter, and share progress as we go.</p>
+          </div>
+        </article>
+        <article class="step">
+          <div class="step-num">5</div>
+          <div>
+            <h3>Launch with App Lab testers</h3>
+            <p>We run a closed test on this site, then submit to Google Play when the test is ready.</p>
+          </div>
+        </article>
+      </div>
+      <form id="build-form" class="feedback-form" novalidate style="margin-top:18px">
+        <div class="hp" aria-hidden="true">
+          <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <div class="form-row">
+          <label>
+            Your name
+            <input id="build-name" name="builderName" type="text" autocomplete="name" required placeholder="Your name">
+          </label>
+          <label>
+            Email
+            <input id="build-email" name="email" type="email" autocomplete="email" required placeholder="Where we can reply">
+          </label>
+        </div>
+        <label>
+          Business or app name
+          <input id="build-business" name="businessName" type="text" required placeholder="Your business or the app’s name">
+        </label>
+        <label>
+          App idea
+          <textarea id="build-idea" name="idea" required minlength="8" rows="4" placeholder="What should the app do, and who is it for?"></textarea>
+        </label>
+        <div class="form-row">
+          <label>
+            Platform
+            <select id="build-platform" name="platform" required>
+              <option value="">Choose a platform</option>
+              <option value="Android (Google Play)">Android (Google Play)</option>
+              <option value="Android now, iOS later">Android now, iOS later</option>
+              <option value="iOS on request">iOS on request</option>
+              <option value="Not sure yet">Not sure yet</option>
+            </select>
+          </label>
+          <label>
+            Budget range
+            <select id="build-budget" name="budget" required>
+              <option value="">Choose a range</option>
+              <option value="$5,000–$10,000">$5,000–$10,000</option>
+              <option value="$10,000–$20,000">$10,000–$20,000</option>
+              <option value="$20,000–$40,000">$20,000–$40,000</option>
+              <option value="$40,000 or more">$40,000 or more</option>
+              <option value="Not sure yet — I want a quote">Not sure yet — I want a quote</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-row">
+          <label>
+            Timeline
+            <select id="build-timeline" name="timeline" required>
+              <option value="">Choose a timeline</option>
+              <option value="As soon as possible">As soon as possible</option>
+              <option value="1–3 months">1–3 months</option>
+              <option value="3–6 months">3–6 months</option>
+              <option value="Flexible">Flexible</option>
+            </select>
+          </label>
+          <label>
+            Management package (optional)
+            <select id="build-management" name="management">
+              <option value="">No package yet</option>
+              <option value="Care — $500+/mo">Care — $500+/mo</option>
+              <option value="Play Console & releases — $1,000+/mo">Play Console &amp; releases — $1,000+/mo</option>
+              <option value="Growth — $1,500+/mo">Growth — $1,500+/mo</option>
+              <option value="Not sure — help me choose">Not sure — help me choose</option>
+            </select>
+          </label>
+        </div>
+        <label>
+          Notes
+          <textarea id="build-notes" name="notes" rows="4" placeholder="Anything else I should know?"></textarea>
+        </label>
+        <p class="form-note">We’ll only use your email to follow up on this request. Submitting this form does not start a paid project.</p>
+        <button class="btn btn-primary" type="submit">Request a consult</button>
+        <p class="form-status" id="build-status" role="status"></p>
+      </form>
+    </section>
+
     <section id="faq">
       <h2>FAQ</h2>
       <details>
@@ -770,8 +1032,12 @@
         <p>Yes, if you are an indie Android developer in Google Play closed testing. The first 20 apps are free, then $29 per app. We recruit real testers and give you a card, tracker, daily-open reminders, and a weekly feedback report. We don’t guarantee a tester count or Google’s approval, and we never pay for installs or reviews. Use the List your app form above, or email support.</p>
       </details>
       <details>
+        <summary>Can you build an app for my business?</summary>
+        <p>Yes. Use the Request an app form above. Builds are Android-first. iOS can be quoted on request. Prices on this page are starting-at estimates. A free consult comes first, then a written quote. I don’t guarantee Google Play approval or a download count.</p>
+      </details>
+      <details>
         <summary>What data does this page collect?</summary>
-        <p>This page doesn’t collect anything unless you send a form. The feedback form asks which app you mean, a description, and optionally your email, device, and app version so we can follow up. The listing form asks for your name, email, app name, Play link or package, how many testers you have, and a message. Submissions go to our support inbox and a private list. We don’t sell this information. Each app also has its own privacy policy, linked on its card and in the footer.</p>
+        <p>This page doesn’t collect anything unless you send a form. The feedback form asks which app you mean, a description, and optionally your email, device, and app version so we can follow up. The listing form asks for your name, email, app name, Play link or package, how many testers you have, and a message. The build request form asks for your name, email, business or app name, app idea, platform, budget range, timeline, optional management package, and notes. Submissions go to our support inbox and a private list. We don’t sell this information. Each app also has its own privacy policy, linked on its card and in the footer.</p>
       </details>
     </section>
 
@@ -1309,6 +1575,136 @@
       }).catch(function () {
         openMailtoFallback(payload);
         setListingStatus("We couldn’t reach the form inbox, so your email app should open with the request instead.", "ok");
+      }).then(function () {
+        button.disabled = false;
+      });
+    });
+
+    function setBuildStatus(message, kind) {
+      const status = document.getElementById("build-status");
+      status.textContent = message || "";
+      status.className = "form-status" + (kind ? " is-" + kind : "");
+    }
+
+    function buildPayload(form) {
+      const name = form.builderName.value.trim();
+      const email = form.email.value.trim();
+      const business = form.businessName.value.trim();
+      const idea = form.idea.value.trim();
+      const platform = form.platform.value.trim();
+      const budget = form.budget.value.trim();
+      const timeline = form.timeline.value.trim();
+      const management = form.management.value.trim();
+      const notes = form.notes.value.trim();
+      const description = [
+        "APP BUILD REQUEST",
+        "Name: " + (name || "(not provided)"),
+        "Business or app name: " + (business || "(not specified)"),
+        "Platform: " + (platform || "(not provided)"),
+        "Budget range: " + (budget || "(not provided)"),
+        "Timeline: " + (timeline || "(not provided)"),
+        "Management package: " + (management || "(none selected)"),
+        "",
+        "App idea:",
+        idea || "(none)",
+        "",
+        "Notes:",
+        notes || "(none)"
+      ].join("\n");
+      return {
+        app: business,
+        type: "App build request",
+        device: platform,
+        appVersion: budget,
+        description: description,
+        email: email,
+        website: form.website.value.trim(),
+        name: name,
+        idea: idea,
+        timeline: timeline
+      };
+    }
+
+    const buildForm = document.getElementById("build-form");
+    buildForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const payload = buildPayload(buildForm);
+      const button = buildForm.querySelector("button[type='submit']");
+
+      if (payload.website) {
+        setBuildStatus("Thanks — your build request was sent.", "ok");
+        buildForm.reset();
+        return;
+      }
+      if (!payload.name) {
+        setBuildStatus("Please add your name.", "err");
+        buildForm.builderName.focus();
+        return;
+      }
+      if (!payload.email || !validEmail(payload.email)) {
+        setBuildStatus("Please add a valid email so we can reply.", "err");
+        buildForm.email.focus();
+        return;
+      }
+      if (!payload.app) {
+        setBuildStatus("Please add your business or app name.", "err");
+        buildForm.businessName.focus();
+        return;
+      }
+      if (!payload.idea || payload.idea.length < 8) {
+        setBuildStatus("Please describe the app idea (a sentence or two is enough).", "err");
+        buildForm.idea.focus();
+        return;
+      }
+      if (!buildForm.platform.value) {
+        setBuildStatus("Please choose a platform.", "err");
+        buildForm.platform.focus();
+        return;
+      }
+      if (!buildForm.budget.value) {
+        setBuildStatus("Please choose a budget range.", "err");
+        buildForm.budget.focus();
+        return;
+      }
+      if (!buildForm.timeline.value) {
+        setBuildStatus("Please choose a timeline.", "err");
+        buildForm.timeline.focus();
+        return;
+      }
+
+      button.disabled = true;
+      setBuildStatus("Sending…");
+
+      const endpoint = (FEEDBACK_ENDPOINT || "").trim();
+      if (!endpoint) {
+        openMailtoFallback(payload);
+        setBuildStatus("Your email app should open with the request addressed to support. If it doesn’t, email " + SUPPORT_EMAIL + " directly.", "ok");
+        button.disabled = false;
+        return;
+      }
+
+      const body = {
+        app: payload.app,
+        type: payload.type,
+        device: payload.device,
+        appVersion: payload.appVersion,
+        description: payload.description,
+        email: payload.email,
+        website: payload.website,
+        name: payload.name
+      };
+
+      fetch(endpoint, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(body)
+      }).then(function () {
+        setBuildStatus("Thanks — your build request was sent.", "ok");
+        buildForm.reset();
+      }).catch(function () {
+        openMailtoFallback(payload);
+        setBuildStatus("We couldn’t reach the form inbox, so your email app should open with the request instead.", "ok");
       }).then(function () {
         button.disabled = false;
       });
