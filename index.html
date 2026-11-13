@@ -674,6 +674,19 @@
         privacyUrl: "https://oracalum.netlify.app/privacy",
         icon: "assets/oraculum-icon.png",
         enabled: true
+      },
+      {
+        name: "RingSummit",
+        tagline: "White-label cloud call center and HD softphone with AI voice agents. Tester sign-ups open soon.",
+        category: "Business",
+        age18: true,
+        optInUrl: "",
+        playUrl: "",
+        groupUrl: "",
+        groupStatus: "coming",
+        privacyUrl: "",
+        icon: "assets/ringsummit-icon.png",
+        enabled: true
       }
     ];
 
@@ -720,6 +733,7 @@
     }
 
     const PENDING_NOTE = "Opening soon - tester group awaiting Google approval";
+    const COMING_NOTE = "Coming soon - tester sign-ups aren\u2019t open yet. Check back soon.";
 
     function setButtonEnabled(btn, unlocked) {
       btn.classList.toggle("is-disabled", !unlocked);
@@ -744,7 +758,8 @@
 
     function renderApp(app) {
       const id = slug(app.name);
-      const pending = app.groupStatus === "pending";
+      const coming = app.groupStatus === "coming";
+      const pending = app.groupStatus === "pending" || coming;
       const card = el("article", { class: "app-card", id: "app-" + id });
       if (pending) card.dataset.pending = "true";
 
@@ -756,7 +771,7 @@
         el("span", { class: "chip", text: app.category })
       ]);
       if (app.age18) tags.appendChild(el("span", { class: "chip chip-18", text: "18+ only" }));
-      if (pending) tags.appendChild(el("span", { class: "chip chip-pending", text: "Opening soon" }));
+      if (pending) tags.appendChild(el("span", { class: "chip chip-pending", text: coming ? "Coming soon" : "Opening soon" }));
 
       const metaChildren = [
         el("h3", { text: app.name }),
@@ -776,7 +791,11 @@
 
       const bottom = el("div", { class: "card-bottom" });
       if (pending) {
-        bottom.appendChild(el("div", { class: "pending-note", role: "status", text: PENDING_NOTE }));
+        bottom.appendChild(el("div", { class: "pending-note", role: "status", text: coming ? COMING_NOTE : PENDING_NOTE }));
+      }
+      if (coming) {
+        card.appendChild(bottom);
+        return card;
       }
       if (app.age18) {
         const checkId = "age-" + id;
@@ -830,6 +849,7 @@
       const select = document.getElementById("feedback-app");
       if (!select) return;
       visibleApps.forEach(function (app) {
+        if (app.groupStatus === "coming") return;
         select.appendChild(el("option", { value: app.name, text: app.name }));
       });
       select.appendChild(el("option", { value: "General", text: "General (not app-specific)" }));
