@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Dreke’s App Lab — Help test our apps</title>
+  <meta name="description" content="Help test Dreke’s Android apps in Google Play closed testing. Same four steps for every app: join the group, opt in, install, and stay for 14 days.">
+  <style>
+    :root {
+      --bg: #090a12;
+      --card: rgba(20, 22, 36, 0.86);
+      --stroke: rgba(196, 190, 255, 0.16);
+      --text: #f4f2fa;
+      --muted: #b8b4c6;
+      --dim: #8b8798;
+      --accent: #9b8cff;
+      --accent-2: #5eb0ff;
+      --gold: #e8c58a;
+      --ok: #c6b8ff;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.38);
+      --radius: 22px;
+      --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(900px 520px at 85% -10%, rgba(155, 140, 255, 0.22), transparent 55%),
+        radial-gradient(720px 480px at -8% 18%, rgba(94, 176, 255, 0.14), transparent 50%),
+        radial-gradient(640px 420px at 50% 100%, rgba(255, 93, 150, 0.08), transparent 55%),
+        linear-gradient(180deg, #0b0c16, var(--bg) 40%, #07080e);
+      min-height: 100vh;
+      line-height: 1.55;
+    }
+
+    .wrap {
+      width: min(980px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 72px;
+    }
+
+    header.hero { text-align: center; padding: 12px 0 8px; }
+
+    .kicker {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ok);
+      border: 1px solid var(--stroke);
+      border-radius: 999px;
+      padding: 5px 10px;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 6.4vw, 3.4rem);
+      letter-spacing: -0.045em;
+      line-height: 0.98;
+      margin: 0 0 10px;
+      font-weight: 800;
+    }
+
+    h1 span {
+      display: block;
+      background: linear-gradient(135deg, #c8beff 0%, #7ec4ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .pitch {
+      max-width: 38rem;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    section { margin-top: 40px; }
+
+    h2 {
+      font-size: 1.4rem;
+      letter-spacing: -0.03em;
+      margin: 0 0 8px;
+    }
+
+    .lede { color: var(--muted); margin: 0 0 18px; }
+
+    .steps {
+      display: grid;
+      gap: 12px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 14px;
+      align-items: start;
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .step-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 11px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: #0c0d16;
+      background: linear-gradient(135deg, #c8beff, #7ec4ff);
+    }
+
+    .step h3 { margin: 2px 0 4px; font-size: 1.05rem; letter-spacing: -0.02em; }
+    .step p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+    #apps {
+      display: grid;
+      gap: 16px;
+    }
+
+    .app-card {
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: 24px;
+      padding: 22px 20px 18px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .app-top {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .app-icon,
+    .icon-letter {
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      object-fit: cover;
+      background: #11131c;
+      border: 1px solid var(--stroke);
+    }
+
+    .icon-letter {
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 1.7rem;
+      color: #0c0d16;
+      background: linear-gradient(135deg, #c8beff, #7ec4ff);
+    }
+
+    .app-meta h3 {
+      margin: 0 0 4px;
+      font-size: 1.2rem;
+      letter-spacing: -0.03em;
+    }
+
+    .app-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      padding: 3px 8px;
+      border: 1px solid var(--stroke);
+      color: var(--ok);
+    }
+
+    .chip-18 {
+      color: var(--gold);
+      border-color: rgba(232, 197, 138, 0.4);
+      background: rgba(232, 197, 138, 0.08);
+    }
+
+    .chip-pending {
+      color: var(--gold);
+      border-color: rgba(232, 197, 138, 0.45);
+      background: rgba(232, 197, 138, 0.1);
+    }
+
+    .pending-note {
+      color: var(--gold);
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.4;
+      background: rgba(232, 197, 138, 0.08);
+      border: 1px solid rgba(232, 197, 138, 0.28);
+      border-radius: 16px;
+      padding: 12px 14px;
+    }
+
+    .tagline { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+    .privacy {
+      margin: 6px 0 0;
+      font-size: 0.88rem;
+    }
+
+    .privacy a { color: var(--gold); }
+
+    .gate {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      background: rgba(232, 197, 138, 0.08);
+      border: 1px solid rgba(232, 197, 138, 0.28);
+      border-radius: 16px;
+      padding: 12px 14px;
+    }
+
+    .gate input {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      accent-color: #9b8cff;
+      flex: 0 0 auto;
+    }
+
+    .gate label { font-weight: 600; cursor: pointer; font-size: 0.95rem; }
+    .gate span { display: block; color: var(--muted); font-weight: 400; font-size: 0.85rem; margin-top: 2px; }
+
+    .card-bottom { margin-top: auto; display: grid; gap: 14px; }
+    .actions { display: grid; gap: 8px; }
+
+    .btn, .soon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      border: 1px solid var(--stroke);
+      border-radius: 999px;
+      padding: 12px 16px;
+      font: inherit;
+      font-weight: 700;
+      color: var(--text);
+      background: transparent;
+      text-align: center;
+    }
+
+    .btn { cursor: pointer; transition: filter 0.15s ease, transform 0.15s ease, opacity 0.15s ease; }
+    .btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .btn-primary {
+      background: linear-gradient(135deg, #c8beff, #7ec4ff);
+      color: #0c0d16;
+      border: 0;
+    }
+
+    .btn[aria-disabled="true"],
+    .btn.is-disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+      transform: none;
+      filter: none;
+      pointer-events: none;
+    }
+
+    .soon {
+      color: var(--gold);
+      border-style: dashed;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .btn:focus-visible,
+    .gate input:focus-visible,
+    summary:focus-visible,
+    a:focus-visible {
+      outline: 2px solid var(--accent-2);
+      outline-offset: 3px;
+    }
+
+    .swap {
+      background: linear-gradient(180deg, rgba(155, 140, 255, 0.12), rgba(94, 176, 255, 0.06));
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+    }
+
+    .swap p { color: var(--muted); margin: 0; }
+    .swap p + p { margin-top: 10px; }
+
+    details {
+      border-bottom: 1px solid var(--stroke);
+      padding: 12px 0;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; color: var(--accent); font-size: 1.3rem; font-weight: 500; }
+    details[open] summary::after { content: "–"; }
+    details p { margin: 10px 0 4px; color: var(--muted); }
+
+    footer {
+      margin-top: 48px;
+      padding-top: 22px;
+      border-top: 1px solid var(--stroke);
+      color: var(--dim);
+      font-size: 0.88rem;
+      text-align: center;
+    }
+
+    .noscript {
+      margin-top: 20px;
+      color: var(--gold);
+      text-align: center;
+    }
+
+    @media (min-width: 760px) {
+      .steps { grid-template-columns: 1fr 1fr; }
+      #apps { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .btn { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="hero">
+      <div class="kicker">Closed testing</div>
+      <h1>Dreke’s App Lab<span>Help test our apps</span></h1>
+      <p class="pitch">These Android apps are in Google Play closed testing. The steps are the same for every app — pick one below and follow them in order.</p>
+    </header>
+
+    <section id="how">
+      <h2>How to become a tester</h2>
+      <p class="lede">Use the same Google account that is signed in on your phone’s Play Store for every step.</p>
+      <div class="steps">
+        <article class="step">
+          <div class="step-num">1</div>
+          <div>
+            <h3>Join that app’s Google Group</h3>
+            <p>Join with the same Google account as your Play Store. If a group is still awaiting Google approval, that card will say “Opening soon” and the links will stay locked.</p>
+          </div>
+        </article>
+        <article class="step">
+          <div class="step-num">2</div>
+          <div>
+            <h3>Open the opt-in link</h3>
+            <p>Tap Become a tester on the official Google Play opt-in page for that app.</p>
+          </div>
+        </article>
+        <article class="step">
+          <div class="step-num">3</div>
+          <div>
+            <h3>Wait, then install</h3>
+            <p>Wait a few minutes, then install the app from its Play Store link.</p>
+          </div>
+        </article>
+        <article class="step">
+          <div class="step-num">4</div>
+          <div>
+            <h3>Stay for 14 days</h3>
+            <p>Stay opted in, keep the app installed for 14 days, and open it a few times.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Apps you can test</h2>
+      <p class="lede">Each card has the three links you need for steps 1–3.</p>
+      <div id="apps"></div>
+      <noscript><p class="noscript">Turn on JavaScript to see the app cards and tester links.</p></noscript>
+    </section>
+
+    <section class="swap" id="swap">
+      <h2>Test-for-test</h2>
+      <p>If you found this from a Reddit or Discord tester thread, post your own opt-in link in that same thread after you join, opt in, and install. Dreke will test your app back.</p>
+      <p>There’s no form and no email signup here, and this page doesn’t collect any data. Just leave your link on the thread where you found this, and keep both apps installed for 14 days.</p>
+    </section>
+
+    <section id="faq">
+      <h2>FAQ</h2>
+      <details>
+        <summary>Why 14 days?</summary>
+        <p>Google Play requires testers to stay opted in for 14 consecutive days before a new personal developer account can apply for production. Uninstalling early can reset that clock.</p>
+      </details>
+      <details>
+        <summary>It says “App not found.” What now?</summary>
+        <p>That usually means you’re signed into a different Google account than the one that joined the tester group, or you haven’t opted in yet. Confirm the accounts match, finish the opt-in step, then wait a few minutes and try the Play Store link again.</p>
+      </details>
+      <details>
+        <summary>What phone do I need?</summary>
+        <p>Android only, through Google Play. These tests aren’t available on iPhone.</p>
+      </details>
+      <details>
+        <summary>Is it free?</summary>
+        <p>Yes. Joining a closed test and installing the app is free.</p>
+      </details>
+    </section>
+
+    <footer>
+      <p>Built by Dirty South Marketing Agency, Macon GA</p>
+    </footer>
+  </main>
+
+  <script>
+    const APPS = [
+      {
+        name: "ShrinkPro",
+        tagline: "Compress photos, videos, and PDFs.",
+        category: "Tools",
+        age18: true,
+        optInUrl: "https://play.google.com/apps/testing/com.shrinkpro.toolkit",
+        playUrl: "https://play.google.com/store/apps/details?id=com.shrinkpro.toolkit",
+        groupUrl: "https://groups.google.com/g/closed-test-pro-",
+        groupStatus: "live",
+        privacyUrl: "https://dreke20.github.io/whispers26-legal/shrinkpro/privacy.html",
+        icon: "assets/shrinkpro-icon.png",
+        enabled: true
+      },
+      {
+        name: "SparkQuest: Date & Co-Op Quests",
+        tagline: "Dating without the endless swipe. Match, then play in-chat games and take the date into the real world — trivia duels, 2 truths & 1 lie, would you rather, and public-spot date quests, with safety tools built in.",
+        category: "Dating",
+        age18: true,
+        optInUrl: "https://play.google.com/apps/testing/com.sparkquest.sparkquest",
+        playUrl: "https://play.google.com/store/apps/details?id=com.sparkquest.sparkquest",
+        groupUrl: "https://groups.google.com/g/sparkquest-closed-testers",
+        groupStatus: "pending",
+        privacyUrl: "https://dreke20.github.io/SparkQuest/privacy.html",
+        icon: "assets/sparkquest-icon.png",
+        enabled: true
+      },
+      {
+        name: "Whispers & Warnings",
+        tagline: "Readings and chat.",
+        category: "Lifestyle",
+        age18: true,
+        optInUrl: "https://play.google.com/apps/testing/whispers.warnings",
+        playUrl: "https://play.google.com/store/apps/details?id=whispers.warnings",
+        groupUrl: "https://groups.google.com/g/whispers-warnings-testers",
+        groupStatus: "pending",
+        privacyUrl: "https://dreke20.github.io/whispers26-legal/privacy-policy.html",
+        icon: null,
+        enabled: false
+      },
+      {
+        name: "Oraculum: Sacred AI Tarot",
+        tagline: "AI tarot and astrology readings with a card scanner (Tarot Lens).",
+        category: "Lifestyle",
+        age18: true,
+        optInUrl: "https://play.google.com/apps/testing/oraculum.dirtysouth",
+        playUrl: "https://play.google.com/store/apps/details?id=oraculum.dirtysouth",
+        groupUrl: "https://groups.google.com/g/oraculum-testers",
+        groupStatus: "pending",
+        privacyUrl: "https://oracalum.netlify.app/privacy",
+        icon: "assets/oraculum-icon.png",
+        enabled: true
+      }
+    ];
+
+    function slug(name) {
+      return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    }
+
+    function el(tag, attrs, children) {
+      const node = document.createElement(tag);
+      if (attrs) {
+        Object.entries(attrs).forEach(function (entry) {
+          const key = entry[0];
+          const value = entry[1];
+          if (value == null || value === false) return;
+          if (key === "class") node.className = value;
+          else if (key === "text") node.textContent = value;
+          else if (key === "html") node.innerHTML = value;
+          else if (key.indexOf("on") === 0 && typeof value === "function") node.addEventListener(key.slice(2), value);
+          else node.setAttribute(key, value === true ? "" : value);
+        });
+      }
+      (children || []).forEach(function (child) {
+        if (child) node.appendChild(child);
+      });
+      return node;
+    }
+
+    function linkButton(href, label, className) {
+      if (!href) {
+        return el("div", { class: "soon", text: label + " coming soon — check back" });
+      }
+      return el("a", {
+        class: "btn " + (className || ""),
+        href: href,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        text: label
+      });
+    }
+
+    const PENDING_NOTE = "Opening soon - tester group awaiting Google approval";
+
+    function setButtonEnabled(btn, unlocked) {
+      btn.classList.toggle("is-disabled", !unlocked);
+      btn.setAttribute("aria-disabled", unlocked ? "false" : "true");
+      if (unlocked) btn.removeAttribute("tabindex");
+      else btn.setAttribute("tabindex", "-1");
+    }
+
+    function setCardUnlocked(card, unlocked) {
+      if (card.dataset.pending === "true") unlocked = false;
+      card.querySelectorAll(".js-gated").forEach(function (btn) {
+        setButtonEnabled(btn, unlocked);
+      });
+    }
+
+    function renderApp(app) {
+      const id = slug(app.name);
+      const pending = app.groupStatus === "pending";
+      const card = el("article", { class: "app-card", id: "app-" + id });
+      if (pending) card.dataset.pending = "true";
+
+      const icon = app.icon
+        ? el("img", { class: "app-icon", src: app.icon, alt: app.name + " icon", width: "72", height: "72" })
+        : el("div", { class: "icon-letter", text: (app.name || "?").charAt(0), "aria-hidden": "true" });
+
+      const tags = el("div", { class: "app-tags" }, [
+        el("span", { class: "chip", text: app.category })
+      ]);
+      if (app.age18) tags.appendChild(el("span", { class: "chip chip-18", text: "18+ only" }));
+      if (pending) tags.appendChild(el("span", { class: "chip chip-pending", text: "Opening soon" }));
+
+      const metaChildren = [
+        el("h3", { text: app.name }),
+        tags,
+        el("p", { class: "tagline", text: app.tagline })
+      ];
+      if (app.privacyUrl) {
+        metaChildren.push(el("p", { class: "privacy" }, [
+          el("a", { href: app.privacyUrl, target: "_blank", rel: "noopener noreferrer", text: "Privacy policy" })
+        ]));
+      }
+
+      card.appendChild(el("div", { class: "app-top" }, [
+        icon,
+        el("div", { class: "app-meta" }, metaChildren)
+      ]));
+
+      const bottom = el("div", { class: "card-bottom" });
+      if (pending) {
+        bottom.appendChild(el("div", { class: "pending-note", role: "status", text: PENDING_NOTE }));
+      }
+      if (app.age18) {
+        const checkId = "age-" + id;
+        const gateHint = pending
+          ? "This app is for adults only. Tester links stay locked until the group is approved, even after you confirm."
+          : "This app is for adults only. The tester links stay locked until you confirm.";
+        bottom.appendChild(el("div", { class: "gate" }, [
+          el("input", { type: "checkbox", id: checkId }),
+          el("label", { for: checkId }, [
+            document.createTextNode("I confirm I am 18 or older"),
+            el("span", { text: gateHint })
+          ])
+        ]));
+      }
+
+      const actions = el("div", { class: "actions" });
+      if (app.groupUrl) {
+        actions.appendChild(linkButton(app.groupUrl, "Join the tester group", "btn-primary js-gated"));
+      } else {
+        actions.appendChild(el("div", { class: "soon", text: "Group coming soon — check back" }));
+      }
+      actions.appendChild(linkButton(app.optInUrl, "Become a tester", "js-gated"));
+      actions.appendChild(linkButton(app.playUrl, "Install from Play Store", "js-gated"));
+      bottom.appendChild(actions);
+      card.appendChild(bottom);
+
+      setCardUnlocked(card, !app.age18 && !pending);
+      if (app.age18) {
+        const box = card.querySelector("input[type='checkbox']");
+        box.addEventListener("change", function () {
+          setCardUnlocked(card, box.checked);
+        });
+      }
+
+      return card;
+    }
+
+    const root = document.getElementById("apps");
+    APPS.filter(function (app) { return app.enabled; }).forEach(function (app) {
+      root.appendChild(renderApp(app));
+    });
+  </script>
+</body>
+</html>
