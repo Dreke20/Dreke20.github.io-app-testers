@@ -82,6 +82,32 @@
       font-size: 1.05rem;
     }
 
+    .top-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 8px;
+      margin: 20px 0 0;
+    }
+
+    .top-nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+      border: 1px solid var(--stroke);
+      border-radius: 999px;
+      padding: 7px 12px;
+    }
+
+    .top-nav a:hover { color: var(--text); border-color: rgba(196, 190, 255, 0.35); }
+
+    .top-nav .nav-feedback {
+      color: #0c0d16;
+      background: linear-gradient(135deg, #c8beff, #7ec4ff);
+      border: 0;
+    }
+
     section { margin-top: 40px; }
 
     h2 {
@@ -122,6 +148,12 @@
 
     .step h3 { margin: 2px 0 4px; font-size: 1.05rem; letter-spacing: -0.02em; }
     .step p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+    .note {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
 
     #apps {
       display: grid;
@@ -221,7 +253,21 @@
       font-size: 0.88rem;
     }
 
-    .privacy a { color: var(--gold); }
+    .privacy a,
+    .feedback-link,
+    footer a,
+    .contact-line a { color: var(--gold); }
+
+    .feedback-link {
+      display: inline-block;
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      padding: 4px 0 2px;
+    }
+
+    .feedback-link:hover { text-decoration: underline; }
 
     .gate {
       display: flex;
@@ -290,7 +336,10 @@
     .btn:focus-visible,
     .gate input:focus-visible,
     summary:focus-visible,
-    a:focus-visible {
+    a:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
       outline: 2px solid var(--accent-2);
       outline-offset: 3px;
     }
@@ -304,6 +353,68 @@
 
     .swap p { color: var(--muted); margin: 0; }
     .swap p + p { margin-top: 10px; }
+
+    .feedback-form {
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      padding: 20px 18px;
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 14px;
+    }
+
+    .feedback-form label {
+      display: grid;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .feedback-form input,
+    .feedback-form select,
+    .feedback-form textarea {
+      font: inherit;
+      font-weight: 400;
+      color: var(--text);
+      background: #11131c;
+      border: 1px solid var(--stroke);
+      border-radius: 12px;
+      padding: 10px 12px;
+      width: 100%;
+    }
+
+    .feedback-form textarea { resize: vertical; min-height: 120px; }
+
+    .form-row {
+      display: grid;
+      gap: 12px;
+    }
+
+    .hp {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
+    .form-note,
+    .form-status {
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 400;
+      margin: 0;
+    }
+
+    .form-status.is-ok { color: var(--ok); }
+    .form-status.is-err { color: var(--gold); }
+
+    .contact-line {
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
 
     details {
       border-bottom: 1px solid var(--stroke);
@@ -334,6 +445,15 @@
       text-align: center;
     }
 
+    footer p { margin: 0 0 8px; }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 14px;
+    }
+
     .noscript {
       margin-top: 20px;
       color: var(--gold);
@@ -343,6 +463,7 @@
     @media (min-width: 760px) {
       .steps { grid-template-columns: 1fr 1fr; }
       #apps { grid-template-columns: 1fr 1fr; }
+      .form-row { grid-template-columns: 1fr 1fr; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -357,10 +478,16 @@
       <div class="kicker">Closed testing</div>
       <h1>Dirty South’s App Lab<span>Help test our apps</span></h1>
       <p class="pitch">These Android apps are in Google Play closed testing. The steps are the same for every app — pick one below and follow them in order.</p>
+      <nav class="top-nav" aria-label="Page">
+        <a href="#how">How it works</a>
+        <a href="#apps-section">Apps</a>
+        <a href="#faq">FAQ</a>
+        <a class="nav-feedback" href="#feedback">Send feedback</a>
+      </nav>
     </header>
 
     <section id="how">
-      <h2>How to become a tester</h2>
+      <h2>How testing works</h2>
       <p class="lede">Use the same Google account that is signed in on your phone’s Play Store for every step.</p>
       <div class="steps">
         <article class="step">
@@ -373,62 +500,124 @@
         <article class="step">
           <div class="step-num">2</div>
           <div>
-            <h3>Open the opt-in link</h3>
-            <p>Tap Become a tester on the official Google Play opt-in page for that app.</p>
+            <h3>Become a tester</h3>
+            <p>Open the official Google Play opt-in page and tap Become a tester.</p>
           </div>
         </article>
         <article class="step">
           <div class="step-num">3</div>
           <div>
-            <h3>Wait, then install</h3>
-            <p>Wait a few minutes, then install the app from its Play Store link.</p>
+            <h3>Install from Play</h3>
+            <p>Wait a few minutes, then install the app from its Play Store link. The store page stays hidden until you have opted in.</p>
           </div>
         </article>
         <article class="step">
           <div class="step-num">4</div>
           <div>
-            <h3>Stay for 14 days</h3>
-            <p>Stay opted in, keep the app installed for 14 days, and open it a few times.</p>
+            <h3>Keep it installed for 14 days</h3>
+            <p>Stay opted in, keep the app installed, and open it a few times during the 14-day closed test.</p>
           </div>
         </article>
       </div>
+      <p class="note">Google Play requires at least 12 testers to stay opted in for 14 consecutive days before a new personal developer account can apply for production. Uninstalling or leaving early can reset that clock.</p>
     </section>
 
-    <section>
+    <section id="apps-section">
       <h2>Apps you can test</h2>
-      <p class="lede">Each card has the three links you need for steps 1–3.</p>
+      <p class="lede">Each card has the three links you need for steps 1–3. Found a bug or have an idea? Use Send feedback on the card or in the menu.</p>
       <div id="apps"></div>
-      <noscript><p class="noscript">Turn on JavaScript to see the app cards and tester links.</p></noscript>
+      <noscript><p class="noscript">Turn on JavaScript to see the app cards, tester links, and feedback form.</p></noscript>
     </section>
 
     <section class="swap" id="swap">
       <h2>Test-for-test</h2>
       <p>If you found this from a Reddit or Discord tester thread, post your own opt-in link in that same thread after you join, opt in, and install. Dreke will test your app back.</p>
-      <p>There’s no form and no email signup here, and this page doesn’t collect any data. Just leave your link on the thread where you found this, and keep both apps installed for 14 days.</p>
+      <p>There’s no account to create here. Just leave your link on the thread where you found this, and keep both apps installed for 14 days. To report a bug or share an idea, use the feedback form below.</p>
+    </section>
+
+    <section id="feedback">
+      <h2>Send feedback</h2>
+      <p class="lede">Tell us about a bug or an idea. Reports go to our support inbox and a private bug list we use to fix issues.</p>
+      <form id="feedback-form" class="feedback-form" novalidate>
+        <div class="hp" aria-hidden="true">
+          <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <label>
+          App
+          <select id="feedback-app" name="app" required>
+            <option value="">Choose an app</option>
+          </select>
+        </label>
+        <label>
+          Type
+          <select id="feedback-type" name="type" required>
+            <option value="Bug">Bug</option>
+            <option value="Idea">Idea</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+        <div class="form-row">
+          <label>
+            Device / Android version
+            <input id="feedback-device" name="device" type="text" autocomplete="off" placeholder="e.g. Pixel 7, Android 15">
+          </label>
+          <label>
+            App version
+            <input id="feedback-app-version" name="appVersion" type="text" autocomplete="off" placeholder="e.g. 1.0.3 (optional)">
+          </label>
+        </div>
+        <label>
+          What happened?
+          <textarea id="feedback-description" name="description" required minlength="8" rows="5" placeholder="What did you expect, and what happened instead?"></textarea>
+        </label>
+        <label>
+          Email (optional)
+          <input id="feedback-email" name="email" type="email" autocomplete="email" placeholder="Only if you want a reply">
+        </label>
+        <p class="form-note">We’ll only use your email to follow up on this report.</p>
+        <button class="btn btn-primary" type="submit">Send feedback</button>
+        <p class="form-status" id="feedback-status" role="status"></p>
+      </form>
+      <p class="contact-line">You can also email support at <a href="mailto:dirtysouthmarketingagency@gmail.com">dirtysouthmarketingagency@gmail.com</a>.</p>
     </section>
 
     <section id="faq">
       <h2>FAQ</h2>
       <details>
         <summary>Why 14 days?</summary>
-        <p>Google Play requires testers to stay opted in for 14 consecutive days before a new personal developer account can apply for production. Uninstalling early can reset that clock.</p>
+        <p>Google Play requires at least 12 testers to stay opted in for 14 consecutive days before a new personal developer account can apply for production. Uninstalling or leaving the test early can reset that clock.</p>
       </details>
       <details>
-        <summary>It says “App not found.” What now?</summary>
-        <p>That usually means you’re signed into a different Google account than the one that joined the tester group, or you haven’t opted in yet. Confirm the accounts match, finish the opt-in step, then wait a few minutes and try the Play Store link again.</p>
+        <summary>The Play Store link says “App not found.” What now?</summary>
+        <p>That’s normal until you join the tester group and tap Become a tester. Google only shows the store page to people who have opted in. If you already opted in, make sure you’re signed into the same Google account on this page and in the Play Store, wait a few minutes, then try the Install link again.</p>
+      </details>
+      <details>
+        <summary>Which Google account should I use?</summary>
+        <p>Use the same Google account for the Google Group, the Become a tester page, and the Play Store on your phone. A different account is the most common reason the install page doesn’t appear.</p>
+      </details>
+      <details>
+        <summary>How do I leave a test?</summary>
+        <p>Open the same Become a tester page for that app and choose to leave the test. You can also uninstall the app, and leave the Google Group if you want. Leaving early can reset the 14-day tester clock for that app.</p>
+      </details>
+      <details>
+        <summary>Is it free?</summary>
+        <p>Yes. Joining a closed test and installing the app is free.</p>
       </details>
       <details>
         <summary>What phone do I need?</summary>
         <p>Android only, through Google Play. These tests aren’t available on iPhone.</p>
       </details>
       <details>
-        <summary>Is it free?</summary>
-        <p>Yes. Joining a closed test and installing the app is free.</p>
+        <summary>What data does this page collect?</summary>
+        <p>This page doesn’t collect anything unless you send the feedback form. The form asks which app you mean, a description, and optionally your email, device, and app version so we can follow up. Submissions go to our support inbox and a private bug list. We don’t sell this information. Each app also has its own privacy policy, linked on its card and in the footer.</p>
       </details>
     </section>
 
     <footer>
       <p>Built by Dirty South Marketing Agency, Macon GA</p>
+      <p>Support: <a href="mailto:dirtysouthmarketingagency@gmail.com">dirtysouthmarketingagency@gmail.com</a></p>
+      <p>Privacy policies</p>
+      <p class="footer-links" id="footer-privacy"></p>
     </footer>
   </main>
 
@@ -488,6 +677,11 @@
       }
     ];
 
+    const SUPPORT_EMAIL = "dirtysouthmarketingagency@gmail.com";
+    // PASTE the Apps Script web app URL here after Dreke deploys it (the URL ends in /exec).
+    // Until then, the form falls back to a mailto: message to support.
+    const FEEDBACK_ENDPOINT = "";
+
     function slug(name) {
       return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
     }
@@ -502,7 +696,7 @@
           if (key === "class") node.className = value;
           else if (key === "text") node.textContent = value;
           else if (key === "html") node.innerHTML = value;
-          else if (key.indexOf("on") === 0 && typeof value === "function") node.addEventListener(key.slice(2), value);
+          else if (key.indexOf("on") === 0 && typeof value === "function") node.addEventListener(key.slice(2).toLowerCase(), value);
           else node.setAttribute(key, value === true ? "" : value);
         });
       }
@@ -539,6 +733,13 @@
       card.querySelectorAll(".js-gated").forEach(function (btn) {
         setButtonEnabled(btn, unlocked);
       });
+    }
+
+    function selectFeedbackApp(name) {
+      const select = document.getElementById("feedback-app");
+      if (!select || !name) return;
+      const match = Array.prototype.some.call(select.options, function (opt) { return opt.value === name; });
+      if (match) select.value = name;
     }
 
     function renderApp(app) {
@@ -599,6 +800,12 @@
       }
       actions.appendChild(linkButton(app.optInUrl, "Become a tester", "js-gated"));
       actions.appendChild(linkButton(app.playUrl, "Install from Play Store", "js-gated"));
+      actions.appendChild(el("a", {
+        class: "feedback-link",
+        href: "#feedback",
+        text: "Send feedback",
+        onclick: function () { selectFeedbackApp(app.name); }
+      }));
       bottom.appendChild(actions);
       card.appendChild(bottom);
 
@@ -613,9 +820,145 @@
       return card;
     }
 
+    const visibleApps = APPS.filter(function (app) { return app.enabled; });
     const root = document.getElementById("apps");
-    APPS.filter(function (app) { return app.enabled; }).forEach(function (app) {
+    visibleApps.forEach(function (app) {
       root.appendChild(renderApp(app));
+    });
+
+    (function populateFeedbackApps() {
+      const select = document.getElementById("feedback-app");
+      if (!select) return;
+      visibleApps.forEach(function (app) {
+        select.appendChild(el("option", { value: app.name, text: app.name }));
+      });
+      select.appendChild(el("option", { value: "General", text: "General (not app-specific)" }));
+    })();
+
+    (function populateFooterPrivacy() {
+      const holder = document.getElementById("footer-privacy");
+      if (!holder) return;
+      visibleApps.forEach(function (app) {
+        if (!app.privacyUrl) return;
+        holder.appendChild(el("a", {
+          href: app.privacyUrl,
+          target: "_blank",
+          rel: "noopener noreferrer",
+          text: app.name
+        }));
+      });
+    })();
+
+    function setFormStatus(message, kind) {
+      const status = document.getElementById("feedback-status");
+      status.textContent = message || "";
+      status.className = "form-status" + (kind ? " is-" + kind : "");
+    }
+
+    function formPayload(form) {
+      return {
+        app: form.app.value.trim(),
+        type: form.type.value.trim(),
+        device: form.device.value.trim(),
+        appVersion: form.appVersion.value.trim(),
+        description: form.description.value.trim(),
+        email: form.email.value.trim(),
+        website: form.website.value.trim()
+      };
+    }
+
+    function mailtoHref(payload) {
+      const subject = "[App Lab] " + payload.type + (payload.app ? " — " + payload.app : "");
+      const body = [
+        "App: " + (payload.app || "(not specified)"),
+        "Type: " + payload.type,
+        "Device / Android version: " + (payload.device || "(not provided)"),
+        "App version: " + (payload.appVersion || "(not provided)"),
+        "Email: " + (payload.email || "(not provided)"),
+        "",
+        "Description:",
+        payload.description
+      ].join("\n");
+      return "mailto:" + SUPPORT_EMAIL + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+    }
+
+    function openMailtoFallback(payload) {
+      const href = mailtoHref(payload);
+      const link = document.createElement("a");
+      link.href = href;
+      link.style.display = "none";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function validEmail(value) {
+      if (!value) return true;
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    }
+
+    const form = document.getElementById("feedback-form");
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const payload = formPayload(form);
+      const button = form.querySelector("button[type='submit']");
+
+      if (payload.website) {
+        setFormStatus("Thanks — your feedback was sent.", "ok");
+        form.reset();
+        return;
+      }
+      if (!payload.app) {
+        setFormStatus("Please choose an app.", "err");
+        form.app.focus();
+        return;
+      }
+      if (!payload.description || payload.description.length < 8) {
+        setFormStatus("Please describe what happened (a sentence or two is enough).", "err");
+        form.description.focus();
+        return;
+      }
+      if (!validEmail(payload.email)) {
+        setFormStatus("That email doesn’t look right. You can leave it blank.", "err");
+        form.email.focus();
+        return;
+      }
+
+      button.disabled = true;
+      setFormStatus("Sending…");
+
+      const endpoint = (FEEDBACK_ENDPOINT || "").trim();
+      if (!endpoint) {
+        openMailtoFallback(payload);
+        setFormStatus("Your email app should open with the report addressed to support. If it doesn’t, email " + SUPPORT_EMAIL + " directly.", "ok");
+        button.disabled = false;
+        return;
+      }
+
+      const body = {
+        app: payload.app,
+        type: payload.type,
+        device: payload.device,
+        appVersion: payload.appVersion,
+        description: payload.description,
+        email: payload.email,
+        website: payload.website
+      };
+
+      fetch(endpoint, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(body)
+      }).then(function () {
+        setFormStatus("Thanks — your feedback was sent.", "ok");
+        form.reset();
+      }).catch(function () {
+        openMailtoFallback(payload);
+        setFormStatus("We couldn’t reach the form inbox, so your email app should open with the report instead.", "ok");
+      }).then(function () {
+        button.disabled = false;
+      });
     });
   </script>
 </body>
