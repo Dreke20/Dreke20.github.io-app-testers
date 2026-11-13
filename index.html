@@ -4,6 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <meta property="og:image" content="https://apps.dirtysouthagency.com/assets/applab-logo.png">
   <title>Dirty South’s App Lab — Help test our apps</title>
   <meta name="description" content="Help test Dirty South’s Android apps in Google Play closed testing. Same four steps for every app: join the group, opt in, install, and stay for 14 days.">
   <style>
@@ -59,6 +63,8 @@
       margin-bottom: 14px;
     }
 
+    .hero-logo { display:block; width:112px; height:112px; margin:0 auto 18px; border-radius:24px; box-shadow:0 10px 34px rgba(94,176,255,0.22); }
+    @media (max-width:600px){ .hero-logo{ width:88px; height:88px; border-radius:19px; } }
     h1 {
       font-size: clamp(2rem, 6.4vw, 3.4rem);
       letter-spacing: -0.045em;
@@ -488,6 +494,7 @@
 <body>
   <main class="wrap">
     <header class="hero">
+      <img class="hero-logo" src="assets/applab-logo-256.png" width="112" height="112" alt="Dirty South's App Lab logo">
       <div class="kicker">Closed testing</div>
       <h1>Dirty South’s App Lab<span>Help test our apps</span></h1>
       <p class="pitch">These Android apps are in Google Play closed testing. The steps are the same for every app — pick one below and follow them in order.</p>
