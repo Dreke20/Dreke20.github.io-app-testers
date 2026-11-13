@@ -524,11 +524,29 @@
       margin-bottom: 4px;
     }
 
-    .honest-note {
+
+    .listing-pay {
+      margin: 0 0 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .listing-pay .btn {
+      justify-self: start;
+      min-width: 12rem;
+    }
+
+    @media (max-width: 600px) {
+      .listing-pay .btn { justify-self: stretch; }
+    }
+
+    .honest-note,
+    .pay-note {
       margin: 0 0 18px;
       color: var(--muted);
       font-size: 0.95rem;
     }
+    .listing-pay .pay-note { margin: 0; }
 
     @media (min-width: 760px) {
       .steps { grid-template-columns: 1fr 1fr; }
@@ -668,6 +686,10 @@
       <div class="offer-box">
         <strong>Founding offer</strong>
         First 3 apps free, then $29 per app.
+      </div>
+      <div class="listing-pay">
+        <p class="pay-note">The first 3 apps are free — just use the request form below. After that, send a listing request first so we can confirm your app is a fit, then pay $29 to lock in your spot.</p>
+        <a class="btn btn-primary" id="listing-pay" href="https://whop.com/checkout/plan_TMPXZdX2kvPYk" target="_blank" rel="noopener">Pay $29 &amp; list</a>
       </div>
       <p class="honest-note">We recruit real testers. We do not guarantee a tester count or Google’s approval, and we never pay for installs or reviews.</p>
       <form id="listing-form" class="feedback-form" novalidate>
