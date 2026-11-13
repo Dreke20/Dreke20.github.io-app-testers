@@ -479,6 +479,57 @@
       text-align: center;
     }
 
+
+    .include-list {
+      display: grid;
+      gap: 10px;
+      margin: 0 0 16px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .include-list li {
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      padding: 12px 14px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      box-shadow: var(--shadow);
+    }
+
+    .include-list strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .offer-box {
+      color: var(--gold);
+      font-size: 0.98rem;
+      font-weight: 600;
+      line-height: 1.45;
+      background: rgba(232, 197, 138, 0.08);
+      border: 1px solid rgba(232, 197, 138, 0.28);
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin: 0 0 14px;
+    }
+
+    .offer-box strong {
+      display: block;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .honest-note {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
     @media (min-width: 760px) {
       .steps { grid-template-columns: 1fr 1fr; }
       #apps { grid-template-columns: 1fr 1fr; }
@@ -502,6 +553,7 @@
         <a href="#how">How it works</a>
         <a href="#apps-section">Apps</a>
         <a href="#faq">FAQ</a>
+        <a href="#list">List your app</a>
         <a class="nav-feedback" href="#feedback">Send feedback</a>
       </nav>
     </header>
@@ -601,6 +653,61 @@
       <p class="contact-line">You can also email support at <a href="mailto:dirtysouthmarketingagency@gmail.com">dirtysouthmarketingagency@gmail.com</a>.</p>
     </section>
 
+
+    <section id="list">
+      <h2>List your app</h2>
+      <p class="lede">For indie Android developers who need 12 testers to stay opted in for 14 days before they can apply for Google Play production access.</p>
+      <p class="lede">App Lab can put your app on the same board we use for our own closed tests. A listing includes:</p>
+      <ul class="include-list">
+        <li><strong>An app card on App Lab</strong> Your app is listed next to the other apps testers already visit.</li>
+        <li><strong>Google Group and opt-in steps</strong> Testers get the same join, Become a tester, and Play install path.</li>
+        <li><strong>A live tester tracker</strong> A public “X of 12 testers / Day N of 14” count so people can see what’s still needed.</li>
+        <li><strong>Daily-open reminders</strong> We ask testers to stay opted in and open the app for about a minute each day.</li>
+        <li><strong>A weekly feedback and bug report</strong> What testers actually send in, compiled for you.</li>
+      </ul>
+      <div class="offer-box">
+        <strong>Founding offer</strong>
+        First 3 apps free, then $29 per app.
+      </div>
+      <p class="honest-note">We recruit real testers. We do not guarantee a tester count or Google’s approval, and we never pay for installs or reviews.</p>
+      <form id="listing-form" class="feedback-form" novalidate>
+        <div class="hp" aria-hidden="true">
+          <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <div class="form-row">
+          <label>
+            Your name
+            <input id="listing-name" name="listerName" type="text" autocomplete="name" required placeholder="Your name">
+          </label>
+          <label>
+            Email
+            <input id="listing-email" name="email" type="email" autocomplete="email" required placeholder="Where we can reply">
+          </label>
+        </div>
+        <div class="form-row">
+          <label>
+            App name
+            <input id="listing-app" name="appName" type="text" required placeholder="The app you want to list">
+          </label>
+          <label>
+            Play link or package
+            <input id="listing-play" name="playLink" type="text" autocomplete="off" placeholder="Play Store link or package name">
+          </label>
+        </div>
+        <label>
+          How many testers do you have now?
+          <input id="listing-testers" name="testersNow" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 3, or none yet">
+        </label>
+        <label>
+          Message
+          <textarea id="listing-message" name="message" rows="4" placeholder="Anything we should know about the app or the test?"></textarea>
+        </label>
+        <p class="form-note">We’ll only use your email to follow up on this listing request.</p>
+        <button class="btn btn-primary" type="submit">Request a listing</button>
+        <p class="form-status" id="listing-status" role="status"></p>
+      </form>
+    </section>
+
     <section id="faq">
       <h2>FAQ</h2>
       <details>
@@ -628,8 +735,12 @@
         <p>Android only, through Google Play. These tests aren’t available on iPhone.</p>
       </details>
       <details>
+        <summary>Can I list my own app here?</summary>
+        <p>Yes, if you are an indie Android developer in Google Play closed testing. The first 3 apps are free, then $29 per app. We recruit real testers and give you a card, tracker, daily-open reminders, and a weekly feedback report. We don’t guarantee a tester count or Google’s approval, and we never pay for installs or reviews. Use the List your app form above, or email support.</p>
+      </details>
+      <details>
         <summary>What data does this page collect?</summary>
-        <p>This page doesn’t collect anything unless you send the feedback form. The form asks which app you mean, a description, and optionally your email, device, and app version so we can follow up. Submissions go to our support inbox and a private bug list. We don’t sell this information. Each app also has its own privacy policy, linked on its card and in the footer.</p>
+        <p>This page doesn’t collect anything unless you send a form. The feedback form asks which app you mean, a description, and optionally your email, device, and app version so we can follow up. The listing form asks for your name, email, app name, Play link or package, how many testers you have, and a message. Submissions go to our support inbox and a private list. We don’t sell this information. Each app also has its own privacy policy, linked on its card and in the footer.</p>
       </details>
     </section>
 
@@ -1051,6 +1162,107 @@
       }).catch(function () {
         openMailtoFallback(payload);
         setFormStatus("We couldn’t reach the form inbox, so your email app should open with the report instead.", "ok");
+      }).then(function () {
+        button.disabled = false;
+      });
+    });
+
+
+    function setListingStatus(message, kind) {
+      const status = document.getElementById("listing-status");
+      status.textContent = message || "";
+      status.className = "form-status" + (kind ? " is-" + kind : "");
+    }
+
+    function listingPayload(form) {
+      const name = form.listerName.value.trim();
+      const email = form.email.value.trim();
+      const app = form.appName.value.trim();
+      const play = form.playLink.value.trim();
+      const testers = form.testersNow.value.trim();
+      const message = form.message.value.trim();
+      const description = [
+        "LISTING REQUEST",
+        "Name: " + (name || "(not provided)"),
+        "App: " + (app || "(not specified)"),
+        "Play link or package: " + (play || "(not provided)"),
+        "Testers they have now: " + (testers || "(not provided)"),
+        "",
+        "Message:",
+        message || "(none)"
+      ].join("\n");
+      return {
+        app: app,
+        type: "Listing request",
+        device: testers ? ("Testers now: " + testers) : "",
+        appVersion: play,
+        description: description,
+        email: email,
+        website: form.website.value.trim(),
+        name: name
+      };
+    }
+
+    const listingForm = document.getElementById("listing-form");
+    listingForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const payload = listingPayload(listingForm);
+      const button = listingForm.querySelector("button[type='submit']");
+
+      if (payload.website) {
+        setListingStatus("Thanks — your listing request was sent.", "ok");
+        listingForm.reset();
+        return;
+      }
+      if (!payload.name) {
+        setListingStatus("Please add your name.", "err");
+        listingForm.listerName.focus();
+        return;
+      }
+      if (!payload.email || !validEmail(payload.email)) {
+        setListingStatus("Please add a valid email so we can reply.", "err");
+        listingForm.email.focus();
+        return;
+      }
+      if (!payload.app) {
+        setListingStatus("Please add your app name.", "err");
+        listingForm.appName.focus();
+        return;
+      }
+
+      button.disabled = true;
+      setListingStatus("Sending…");
+
+      const endpoint = (FEEDBACK_ENDPOINT || "").trim();
+      if (!endpoint) {
+        openMailtoFallback(payload);
+        setListingStatus("Your email app should open with the request addressed to support. If it doesn’t, email " + SUPPORT_EMAIL + " directly.", "ok");
+        button.disabled = false;
+        return;
+      }
+
+      const body = {
+        app: payload.app,
+        type: payload.type,
+        device: payload.device,
+        appVersion: payload.appVersion,
+        description: payload.description,
+        email: payload.email,
+        website: payload.website,
+        name: payload.name
+      };
+
+      fetch(endpoint, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(body)
+      }).then(function () {
+        setListingStatus("Thanks — your listing request was sent.", "ok");
+        listingForm.reset();
+      }).catch(function () {
+        openMailtoFallback(payload);
+        setListingStatus("We couldn’t reach the form inbox, so your email app should open with the request instead.", "ok");
       }).then(function () {
         button.disabled = false;
       });
