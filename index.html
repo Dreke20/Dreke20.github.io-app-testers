@@ -547,6 +547,7 @@
       font-size: 0.95rem;
     }
     .listing-pay .pay-note { margin: 0; }
+    .listing-pay[hidden] { display: none; }
 
     @media (min-width: 760px) {
       .steps { grid-template-columns: 1fr 1fr; }
@@ -685,10 +686,14 @@
       </ul>
       <div class="offer-box">
         <strong>Founding offer</strong>
-        First 3 apps free, then $29 per app.
+        First 20 apps free, then $29 per app.
       </div>
-      <div class="listing-pay">
-        <p class="pay-note">The first 3 apps are free — just use the request form below. After that, send a listing request first so we can confirm your app is a fit, then pay $29 to lock in your spot.</p>
+      <div class="listing-pay" id="listing-free">
+        <p class="pay-note"><strong id="free-spots-count">20 of 20</strong> free founding spots left. Claim one with the request form below. No payment needed.</p>
+        <a class="btn btn-primary" href="#listing-form">Claim a free spot</a>
+      </div>
+      <div class="listing-pay" id="listing-paid" hidden>
+        <p class="pay-note">The free founding spots are taken. Send a listing request below so we can confirm your app is a fit, then pay $29 to lock in your spot.</p>
         <a class="btn btn-primary" id="listing-pay" href="https://whop.com/checkout/plan_TMPXZdX2kvPYk" target="_blank" rel="noopener">Pay $29 &amp; list</a>
       </div>
       <p class="honest-note">We recruit real testers. We do not guarantee a tester count or Google’s approval, and we never pay for installs or reviews.</p>
@@ -758,7 +763,7 @@
       </details>
       <details>
         <summary>Can I list my own app here?</summary>
-        <p>Yes, if you are an indie Android developer in Google Play closed testing. The first 3 apps are free, then $29 per app. We recruit real testers and give you a card, tracker, daily-open reminders, and a weekly feedback report. We don’t guarantee a tester count or Google’s approval, and we never pay for installs or reviews. Use the List your app form above, or email support.</p>
+        <p>Yes, if you are an indie Android developer in Google Play closed testing. The first 20 apps are free, then $29 per app. We recruit real testers and give you a card, tracker, daily-open reminders, and a weekly feedback report. We don’t guarantee a tester count or Google’s approval, and we never pay for installs or reviews. Use the List your app form above, or email support.</p>
       </details>
       <details>
         <summary>What data does this page collect?</summary>
@@ -774,6 +779,21 @@
     </footer>
   </main>
 
+  <script>
+    // Founding offer: set by hand. While > 0, the Pay button stays hidden.
+    const FREE_SPOTS_LEFT = 20;
+    (function () {
+      const free = document.getElementById("listing-free");
+      const paid = document.getElementById("listing-paid");
+      const count = document.getElementById("free-spots-count");
+      if (FREE_SPOTS_LEFT > 0) {
+        count.textContent = FREE_SPOTS_LEFT + " of 20";
+      } else {
+        free.hidden = true;
+        paid.hidden = false;
+      }
+    })();
+  </script>
   <script>
     const APPS = [
       {
